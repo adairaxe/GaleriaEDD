@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.galeriaedd.PrimaryController">
+   <top>
+      <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="79.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../Downloads/image.png" />
+               </image></ImageView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ALBUM" />
+            <TextField />
+            <Button fx:id="btnBuscar" mnemonicParsing="false" text="Buscar" />
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#crearAlbum" text="Agregar" />
+            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#clickElimnar" text="Eliminar" />
+         </children>
+      </HBox>
+   </bottom>
+   <left>
+      <Button fx:id="btnAnt" mnemonicParsing="false" text="Anterior" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Button fx:id="btnNext" mnemonicParsing="false" text="Siguiente" BorderPane.alignment="CENTER" />
+   </right>
+   <center>
+      <ScrollPane fx:id="panePhoto" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

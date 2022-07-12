@@ -1,0 +1,8 @@
+ec\edu\espol\galeriaedd\App.class
+modelo\Biblioteca.class
+modelo\AlbumPrivado.class
+modelo\Fotografia.class
+ec\edu\espol\galeriaedd\SecondaryController.class
+module-info.class
+modelo\GenerarListas.class
+modelo\Album.class
