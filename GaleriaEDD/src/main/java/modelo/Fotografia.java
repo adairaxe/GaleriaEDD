@@ -5,7 +5,7 @@
  */
 package modelo;
 
-import java.util.LinkedList;
+import TDAs.LinkedList;
 import javafx.scene.image.Image;
 
 public class Fotografia {

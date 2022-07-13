@@ -5,7 +5,7 @@
  */
 package modelo;
 
-import java.util.LinkedList;
+import TDAs.LinkedList;
 import javafx.scene.image.Image;
 
 /**
@@ -69,7 +69,7 @@ public class Album {
     
     public void addImage(String path){
         Image i = new Image(path);
-        fotos.add(i);
+        fotos.addLast(i);
     }
 
 }

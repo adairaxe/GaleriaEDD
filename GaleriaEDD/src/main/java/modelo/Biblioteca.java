@@ -5,7 +5,9 @@
  */
 package modelo;
 
-import java.util.LinkedList;
+import TDAs.LinkedList;
+
+
 
 
 /**

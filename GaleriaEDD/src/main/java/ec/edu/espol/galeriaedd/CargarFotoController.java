@@ -5,7 +5,9 @@
  */
 package ec.edu.espol.galeriaedd;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -15,7 +17,9 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -56,6 +60,10 @@ public class CargarFotoController implements Initializable {
     public final String rutaAbsolutaAlbunmes = "C:.\\Albumes\\"; 
     
     public Path rutaFotoCopiada;
+    @FXML
+    private Button btRegresar;
+    @FXML
+    private Label labelAlbum;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -104,6 +112,30 @@ public class CargarFotoController implements Initializable {
             ex.printStackTrace();
         }
     }
-
+    @FXML
+    public void regresarVistaFoto (ActionEvent event)throws IOException{
+        FXMLLoader loader = App.loadFXML("vistaDentroAlbum");
+        Parent root= loader.load();
+        App.scene.setRoot(root);
+    }
+   public void crearArchivo (String nombre, String descripcion, String lugar, String personas){
+                try {
+            
+           File file= new File(rutaAbsolutaAlbunmes  +"\\"+ lbnombreAlbum.getText()+ ".txt");
+           //String path =rutaAbsolutaAlbunmes  + "Albumes.txt";
+            // Si el archivo no existe es creado
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            //bw.newLine();
+            bw.write(nombre+","+descripcion+","+lugar+","+personas+",");
+            bw.newLine();
+            bw.close();
+        } catch (IOException e) {
+        }
+    
+    }
 
 }

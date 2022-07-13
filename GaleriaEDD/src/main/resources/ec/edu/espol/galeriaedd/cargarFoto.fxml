@@ -4,12 +4,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.galeriaedd.CargarFotoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.galeriaedd.CargarFotoController">
    <top>
       <Label fx:id="lbnombreAlbum" prefHeight="18.0" prefWidth="152.0" BorderPane.alignment="CENTER" />
    </top>
@@ -22,7 +23,7 @@
                   <Label text="Descripcion:" />
                   <Label text="Lugar:" />
                   <Label text="Personas" />
-                  <Button mnemonicParsing="false" text="REGRESAR" />
+                  <Button fx:id="btRegresar" mnemonicParsing="false" onAction="#regresarVistaFoto" text="REGRESAR" />
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
@@ -30,8 +31,8 @@
                   <TextField fx:id="etnombre" />
                   <TextField fx:id="etdescripcion" />
                   <TextField fx:id="etlugar" />
-                  <TextField fx:id="etpersonas" />
-                  <Button fx:id="btguardarFoto" mnemonicParsing="false" onAction="#guardarFotografia" text="GUARDAR" />
+                  <TextField fx:id="etpersonas" prefHeight="25.0" prefWidth="85.0" />
+                  <Button fx:id="btguardarFoto" mnemonicParsing="false" onAction="#guardarFotografia" prefHeight="21.0" prefWidth="71.0" text="GUARDAR" />
                </children>
             </VBox>
          </children>
@@ -44,6 +45,12 @@
       </HBox>
    </left>
    <center>
-      <ImageView fx:id="ivfoto" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#subirFoto" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+      <ImageView fx:id="ivfoto" fitHeight="208.0" fitWidth="261.0" onMouseClicked="#subirFoto" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../../../../../../../Albumes/descargar.png" />
+         </image></ImageView>
    </center>
+   <bottom>
+      <Label fx:id="labelAlbum" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>

@@ -5,9 +5,14 @@
  */
 package ec.edu.espol.galeriaedd;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +21,7 @@ import javafx.scene.Parent;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import modelo.Album;
 /**
  * FXML Controller class
  *
@@ -32,7 +38,11 @@ public class VistaDentroAlbumController implements Initializable {
     private Button btsiguiente;
     @FXML
     private Button btsubirFoto;
+    private Album carga;
+    public final String rutaAbsolutaAlbunmes = "C:.\\Albumes\\";
+    public Album fotos;
     /**
+    
      * Initializes the controller class.
      */
     @Override
@@ -42,10 +52,12 @@ public class VistaDentroAlbumController implements Initializable {
     
     @FXML
     private void regresarImagen(ActionEvent event) {
+        
     }
 
     @FXML
     private void avanzarImagen(ActionEvent event) {
+        
     }
 
     @FXML
@@ -60,5 +72,34 @@ public class VistaDentroAlbumController implements Initializable {
     public void recibeNombreAlbum(PrimaryController ventanaPrincipal, String nombreAlbum){
         lbnombreAlbum.setText(nombreAlbum);
     }
+    public void cargarAlbum(String path){
+    
+    } 
+    @FXML
+     public void regresarPrincipal (ActionEvent event) throws IOException {
+    FXMLLoader loader = App.loadFXML("primary");
+        Parent root= loader.load();
+        App.scene.setRoot(root);
+    }
+    
+    /*private void crearLinkedAlbum(){
+        //LinkedList <Album> album = new LinkedList<>();
+        try {
+            Scanner input = new Scanner(new File(rutaAbsolutaAlbunmes));
+            while (input.hasNextLine()) {
+                String line = input.nextLine();
+                //ArrayList<String> parametros= new ArrayList<>();
+                if (!line.equals("\n")){
+                    String[] linea = line.split(",");
+                    Album nuevoAlbum = new Album(linea[0],linea[1]) {};
+                    fotos.getFotos().addLast(nuevoAlbum);
+                }
+            }
+            input.close();
+        } catch (FileNotFoundException ex) {
+        }
+        //return album;
+    }*/
+ }
+    
 
-}

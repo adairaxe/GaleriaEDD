@@ -1,12 +1,15 @@
 package ec.edu.espol.galeriaedd;
 
+import TDAs.LinkedList;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,7 +43,8 @@ public class PrimaryController implements Initializable{
     
     private HBox images;
     private Button albumSelected;
-
+    private LinkedList<Album> albumes;
+    public final String rutaAbsolutaAlbunmes = "C:.\\Albumes\\";
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          panePhoto.setContent(cargarAlbumes());
@@ -56,7 +60,7 @@ public class PrimaryController implements Initializable{
         File carpeta = new File("albumes");
         images = new HBox();
         File[] listFiles = carpeta.listFiles();
-        List<Album> albunes = new ArrayList<>();
+        //LinkedList<Album> albunes = new LinkedList<>();
         for(File f: listFiles){
        
             if(f.isDirectory()){
@@ -92,6 +96,7 @@ public class PrimaryController implements Initializable{
             }
            
         }
+        //crearLinkedAlbum();
         return images; 
     }
      
@@ -107,8 +112,24 @@ public class PrimaryController implements Initializable{
         FXMLLoader loader = App.loadFXML("crearAlbum");
         Parent root= loader.load();
         App.scene.setRoot(root); 
+   }
+    private void crearLinkedAlbum(){
+        albumes = new LinkedList<>();
+        try {
+            Scanner input = new Scanner(new File(rutaAbsolutaAlbunmes+ "Albumes.txt"));
+            while (input.hasNextLine()) {
+                String line = input.nextLine();
+                if (!line.equals("\n")){
+                    String[] linea = line.split(",");
+                    Album nuevoAlbum = new Album(linea[0],linea[1]) {};
+                    albumes.addLast(nuevoAlbum);
+                }
+            }
+            input.close();
+        } catch (FileNotFoundException ex) {
+        }
+        //return album;
     }
-    
     
     
  
