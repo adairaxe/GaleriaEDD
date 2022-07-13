@@ -2,7 +2,7 @@ package TDAs;
 
 import java.util.Iterator;
 
-public class LinkedList<E> implements List<E> {
+public class LinkedList<E> implements List<E>, Iterable<E> {
 
     private NodeList2<E> first;
     private NodeList2<E> last;
@@ -10,8 +10,6 @@ public class LinkedList<E> implements List<E> {
     public LinkedList() {
         this.first = null;
         this.last = null;
-        this.first.setPrevius(last);
-        this.last.setNext(first);
     }
 
     public NodeList2<E> getFirst() {
@@ -39,16 +37,15 @@ public class LinkedList<E> implements List<E> {
         if (e == null) {
             return false;
         }
-        
         NodeList2<E> nuevo = new NodeList2<>(e);
-        this.getFirst().setPrevius(nuevo);
         nuevo.setNext(this.getFirst());
         nuevo.setPrevius(this.getLast());
-        if (this.isEmpty()) 
+        if (this.isEmpty()) {
             
             this.setLast(nuevo);
-        
+        }
         this.setFirst(nuevo);
+        this.getLast().setNext(this.getFirst());
         return true;
     }
     
@@ -62,17 +59,17 @@ public class LinkedList<E> implements List<E> {
             return false;
         }
         NodeList2<E> nuevo = new NodeList2<>(e);
-        if (this.isEmpty()){     
-            
+        if (this.isEmpty())  {   
             this.setFirst(nuevo);
-            this.first.setNext(nuevo);
-            this.first.setPrevius(nuevo);
-        }else{
+        } 
+        else{
             //Esta linea es necesaria sólo por el primer caso, el last seria null y al null no le hace setNext
             this.getLast().setNext(nuevo);
-            this.getLast().setNext(this.first);
         }
+        nuevo.setPrevius(this.getLast());
+        nuevo.setNext(this.getFirst());
         this.setLast(nuevo);
+        this.getFirst().setPrevius(this.getLast());
         return true;
     }
     
@@ -81,11 +78,11 @@ public class LinkedList<E> implements List<E> {
     
     @Override
     public E removeFirst() {
-        
+        if (this.isEmpty())
+            return null;
         NodeList2<E> nodoEliminado = this.getFirst();
         this.first = this.getFirst().getNext();
-        this.first.setPrevius(this.last);
-        this.last.setNext(this.first);
+        this.last.setNext(this.getFirst());
         return nodoEliminado.getContent();
     }
     
@@ -100,6 +97,7 @@ public class LinkedList<E> implements List<E> {
         if (this.first == this.last){
             System.out.println("La lista sólo tiene 1 elemento");
             this.first.setContent(null);
+            this.last.setContent(null);
             return null; 
             
         } else {
@@ -121,9 +119,11 @@ public class LinkedList<E> implements List<E> {
     @Override
     public int size() {
         
-        int cont = 1;
+        int cont = 0;
+        if (this.getFirst()!=null)
+            cont = 1;
         NodeList2<E> t;
-        for (t = this.getFirst(); t != this.getLast(); t = t.getNext()) {
+        for (t = this.getFirst().getNext(); t != this.getFirst(); t = t.getNext()) {
             
             cont++;
         }
@@ -142,6 +142,7 @@ public class LinkedList<E> implements List<E> {
     public void clear() {
         
         this.setFirst(null);
+        this.setLast(null);
     }
     
     
@@ -221,17 +222,18 @@ public class LinkedList<E> implements List<E> {
                 try {
                     
                     NodeList2<E> actual,removido;
-                    actual = darNodoActual(index - 1);
+                    actual = darNodoActual(index);
                     removido = actual;
                     if(actual == this.last){
                         
                         this.last = actual;
-                        actual.setNext(null);
+                        this.last.setNext(this.getFirst());
+                        this.first.setPrevius(this.last);
                         
-                    } else
-                        
+                    } else{
+                        actual.setPrevius(actual.getPrevius().getPrevius());
                         actual.setNext(actual.getNext().getNext());
-
+                    }
                     return removido.getContent();
                     
                 } catch (Exception e) {
@@ -337,7 +339,11 @@ public class LinkedList<E> implements List<E> {
         
         String s = "";
         NodeList2<E> t;
-        for (t = this.getFirst(); t != null; t = t.getNext()) {
+        NodeList2<E> u;
+        u = this.getFirst();
+        s = u.getContent() + " ";
+        //t = t.getNext();
+        for (t=this.getFirst().getNext(); t != this.getFirst(); t = t.getNext()) {
             
             s += t.getContent() + " ";
             
@@ -377,17 +383,19 @@ public class LinkedList<E> implements List<E> {
 
         Iterator<E> it = new Iterator<E>() {
             NodeList2<E> cursor = first;
-
-            @Override
-            public boolean hasNext() {
-                return cursor.getNext() != null;
-            }
-
+            int i = 0; 
+            
             @Override
             public E next() {
                 E e = cursor.getContent();
                 cursor = cursor.getNext();
                 return e;
+            }
+            @Override
+            public boolean hasNext() {
+                if (cursor==first)
+                    i++;
+                return i<2;
             }
         };
         return it;
